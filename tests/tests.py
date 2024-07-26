@@ -24,7 +24,7 @@ def test_add_message() -> None:
 def test_root_call(api_client: TestClient) -> None:
     response = api_client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Hi Me"}
+    assert response.json() == {"message": "Hi Me!"}
 
 
 def test_custom_call(monkeypatch, api_client: TestClient) -> None:

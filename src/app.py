@@ -30,7 +30,7 @@ def custom():
 
 @app.get("/version")
 def version():
-    with open("version.json", "r") as version_file:
+    with open("src/version.json", "r") as version_file:
         version_data = json.load(version_file)
         return {
             "version": version_data.get("version", "0.0.0")
