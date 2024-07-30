@@ -1,14 +1,18 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
+name: Python application
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - develop
+      - feature/*
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - develop
+      - feature/*
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -16,21 +20,38 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build_and_test_python_app:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Check out code
+      uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+  
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f Pipfile ]; then 
+          pip install pipenv 
+          pipenv install --dev --system; 
+        fi
+       # pip install pytest
+       # pip install fastapi
+       # pip install unicorn
+       # pip install black
+       # pip install httpx
+         
+    - name: Run python script
+      run: |
+        python src/app.py
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    - name: Test with pytest
+      run: |
+        python -m pytest tests/tests.py
