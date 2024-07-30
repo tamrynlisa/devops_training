@@ -20,14 +20,15 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  setup:
+  build_and_test_python_app:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    
+    - name: Check out code
+      uses: actions/checkout@v4
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
@@ -46,14 +47,7 @@ jobs:
        # pip install unicorn
        # pip install black
        # pip install httpx
-
-  run_and_test_python_app:
-    runs-on: ubuntu-latest
-
-    steps:    
-    - name: Check out code
-      uses: actions/checkout@v4
-           
+         
     - name: Run python script
       run: |
         python src/app.py
