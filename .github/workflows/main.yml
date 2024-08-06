@@ -56,3 +56,5 @@ jobs:
       run: |
         python -m pytest tests/tests.py --junitxml=test-results.xml
         
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.9.1
