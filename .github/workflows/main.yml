@@ -60,3 +60,4 @@ jobs:
       uses: dorny/test-reporter@v1.9.1
       with:
         name: Python test results
+        path: /home/runner/work/devops_training/devops_training/test-results.xml
