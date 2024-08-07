@@ -61,3 +61,4 @@ jobs:
       with:
         name: Python test results
         path: /home/runner/work/devops_training/devops_training/test-results.xml
+        reporter: ''
