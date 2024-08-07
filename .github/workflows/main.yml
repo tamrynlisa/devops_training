@@ -61,4 +61,4 @@ jobs:
       with:
         name: Python test results
         path: test-results.xml
-        reporter: junit
+        reporter: junit-generic
